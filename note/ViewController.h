@@ -7,8 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+//#import "FMMoveTableView.h"
 
-@interface ViewController : UIViewController
+
+@interface ViewController : UITableViewController
+
 
 
 @end

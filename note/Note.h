@@ -8,12 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
-@interface Note : NSObject
+@interface Note : NSObject <NSCoding>
 
 @property (copy, nonatomic) NSString *text;
 
 - (instancetype)initWithDictionary:(NSDictionary *)dic;
 + (instancetype)noteWithDictionary:(NSDictionary *)dic;
 + (NSMutableArray *)modelToArray:(NSArray *)fileArray;
+
+
 
 @end

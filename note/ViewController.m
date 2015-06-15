@@ -49,12 +49,22 @@
     
     UIColor *color = [UIColor colorWithRed:18/255.0 green:136/255.0 blue:97/255.0 alpha:1];
     
-    self.notes = [NSMutableArray array];
-    NSString *filePath = [self dataFilePath];
-    if ([[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
-        NSArray *array = [NSArray arrayWithContentsOfFile:filePath];
-        self.notes = [Note modelToArray:array];
+    
+//    NSString *filePath = [self dataFilePath];
+//    if ([[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
+//        NSArray *array = [NSArray arrayWithContentsOfFile:filePath];
+//        self.notes = [Note modelToArray:array];
+//    }
+    
+    NSString *dataPath = [self dataArchiverPath];
+    if ([[NSFileManager defaultManager] fileExistsAtPath:dataPath]) {
+        
+        NSData *data = [NSData dataWithContentsOfFile:dataPath];
+        self.notes = [NSKeyedUnarchiver unarchiveObjectWithData:data];
+    }else{
+        self.notes = [NSMutableArray array];
     }
+    
     
     [self.navigationController.navigationBar setBarTintColor:color];
     
@@ -80,18 +90,22 @@
 
 
 - (void)applicationWillResignActive:(NSNotification *)notification{
+//    
+//    NSString *filePath = [self dataFilePath];
+//    NSMutableArray *temArray = [NSMutableArray array ];
+//    for (int i = 0; i < self.notes.count; i++) {
+//        Note *note = self.notes[i];
+//        NSDictionary *tempDic = @{@"text":note.text};
+//        [temArray addObject:tempDic];
+//        
+//    }
+//    
+//    NSArray *array = temArray;
+//    [array writeToFile:filePath atomically:YES];
     
-    NSString *filePath = [self dataFilePath];
-    NSMutableArray *temArray = [NSMutableArray array ];
-    for (int i = 0; i < self.notes.count; i++) {
-        Note *note = self.notes[i];
-        NSDictionary *tempDic = @{@"text":note.text};
-        [temArray addObject:tempDic];
-        
-    }
+    NSString *dataPath = [self dataArchiverPath];
     
-    NSArray *array = temArray;
-    [array writeToFile:filePath atomically:YES];
+    [NSKeyedArchiver archiveRootObject:self.notes toFile:dataPath];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -195,5 +209,13 @@
     
 }
 
+- (NSString *)dataArchiverPath{
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
+    NSString *CachesDirectory = [paths objectAtIndex:0];
+    
+    return [CachesDirectory stringByAppendingPathComponent:@"note.data"];
+    
+}
 
 @end

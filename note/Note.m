@@ -35,7 +35,18 @@
     
 }
 
+- (id)initWithCoder:(NSCoder *)aDecoder{
+    
+    if (self = [super init]) {
+        _text = [aDecoder decodeObjectForKey:@"text"];
+    }
+    
+    return self;
+}
 
-
+- (void)encodeWithCoder:(NSCoder *)aCoder{
+    
+    [aCoder encodeObject:self.text forKey:@"text"];
+}
 
 @end

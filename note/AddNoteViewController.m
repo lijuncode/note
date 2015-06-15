@@ -37,6 +37,22 @@
     
     self.navigationItem.title = dateS;
     
+    UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
+    
+    UIBarButtonItem *done = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStyleDone target:self action:@selector(completeInPut)];
+    
+    UIBarButtonItem *flexibleItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    
+    toolbar.items = @[flexibleItem ,done];
+    
+    self.textView.inputAccessoryView = toolbar;
+    
+}
+
+- (void)completeInPut{
+    
+    [self.view endEditing:YES];
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated{

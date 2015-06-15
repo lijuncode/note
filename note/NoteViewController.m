@@ -44,14 +44,27 @@
     textView.text = self.note.text;
     textView.font = [UIFont systemFontOfSize:16];
     
-   
+    UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 44)];
     
+    UIBarButtonItem *done = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStyleDone target:self action:@selector(completeInPut)];
+    
+    UIBarButtonItem *flexibleItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    
+    toolbar.items = @[flexibleItem ,done];
+    
+    self.textView.inputAccessoryView = toolbar;
     
     self.textView.delegate = self;
     
     NSNotificationCenter *notificationCenter = [NSNotificationCenter defaultCenter];
     [notificationCenter addObserver:self selector:@selector(changeKeyboard:) name:UIKeyboardWillChangeFrameNotification object:nil];
   
+    
+}
+
+- (void)completeInPut{
+    
+    [self.view endEditing:YES];
     
 }
 
@@ -88,13 +101,10 @@
        make.bottom.mas_equalTo(self.view.mas_bottom).offset(keyboardY - [UIScreen mainScreen].bounds.size.height - 10);
    }];
     
-//   self.textView.frame = CGRectMake(10, 10 , 300, 548 - ([UIScreen mainScreen].bounds.size.height-  keyboardY ));
+
 }
 
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
-    
-    [self.textView endEditing:YES];
-}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

@@ -72,11 +72,10 @@
     
     self.tableView.estimatedRowHeight = 44;
     
-    // 修改导航栏标题的颜色
+    // 修改状态栏颜色
+    
     self.navigationController.navigationBar.titleTextAttributes = [NSDictionary dictionaryWithObjectsAndKeys:
                                                                    [UIColor whiteColor],NSForegroundColorAttributeName, nil];
-    
-    
 }
 
 

@@ -21,15 +21,6 @@
 - (void)viewWillAppear:(BOOL)animated{
     
     [super viewWillAppear:animated];
-    
-//    [self.textView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.mas_equalTo(self.textView.superview.mas_top).offset(10);
-//        make.left.mas_equalTo(self.textView.superview.mas_left).offset(10);
-//        make.right.mas_equalTo(self.textView.superview.mas_right).offset(-10);
-//        make.bottom.mas_equalTo(self.textView.superview.mas_bottom).offset(-10);
-//        
-//    }];
-    
     self.textView.delegate = self;
     [self.textView becomeFirstResponder];
 
